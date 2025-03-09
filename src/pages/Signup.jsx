@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../store/authSlice";
-import { TextField, Button, Typography, Container, Box, Paper } from "@mui/material";
+import { TextField, Button, Typography, Container, Box, Paper, FormControl, MenuItem, Select, InputLabel } from "@mui/material";
 import Login from "./Login";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({ storeName: "", email: "", password: "" });
+  const [formData, setFormData] = useState({ storeName: "", email: "", password: "" , role: "customer" });
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
 
@@ -100,6 +100,15 @@ const Signup = () => {
               },
             }}
           />
+           {/* Role Selection */}
+           <FormControl fullWidth margin="normal" sx={{ color: "#fff" }}>
+              <InputLabel sx={{ color: "#ddd" }}>Role</InputLabel>
+              <Select name="role" value={formData.role} onChange={handleChange} sx={{ color: "#fff", "& .MuiOutlinedInput-root": { "& fieldset": { borderColor: "#ddd" }, "&:hover fieldset": { borderColor: "#fff" } } }}>
+                <MenuItem value="admin">Admin</MenuItem>
+                <MenuItem value="store_owner">Store Owner</MenuItem>
+                <MenuItem value="customer">Customer</MenuItem>
+              </Select>
+            </FormControl>
            <motion.div whileTap={{ scale: 0.9 }}>
           <Button 
             type="submit" 
